@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1 style="margin-bottom: 30px">Comments</h1>
+
+<table class="table table-bordered table-striped table-responsive">
+  <thead>
+    <tr>
+      <th>User name</th>
+      <th>Comment</th>
+      <th>Picture</th>
+      <th>Pic Name</th>
+      <th>#</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.user_name %></td>
+        <td><%= comment.body %></td>
+        <td><%= comment.pic_id %></td>
+        <td>
+        </td>
+        <td>
+          <%= link_to 'Show', comment, class: "btn btn-outline-info" %>
+          <% if current_user.admin? || (comment.user_id == current_user.id) %>
+            <%= link_to 'Edit', edit_comment_path(comment), class: "btn btn-outline-warning" %>
+            <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

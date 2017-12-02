@@ -1,0 +1,23 @@
+en:
+  admin:
+    users:
+      index:
+        confirm: "You sure?"
+        create_user: "Create new user"
+        delete: "Delete"
+        email: "Email"
+        user_name: "User Name"
+        email: "Email"
+        lock: "Lock"
+        title: "Manager User"
+        unlock: "Unlock"
+        id: "ID"
+      new:
+        title: "Create user"
+  controller:
+    pics:
+      fail: "Can not edit!"
+      success: "Success"
+    users:
+      fail: "Fail"
+      success: "Success"

@@ -1,0 +1,25 @@
+<br>
+<% @pics.in_groups_of(3) do |group| %>
+  <div class="row">
+    <% group.compact.each do |pic| %>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">  
+        <div class="hovereffect">             	
+	        <% if pic.picture? %>
+	        	<img src="<%= pic.picture_url(:thumb)%>" class="img rounded img-fluid" alt="<%= pic.name %>">
+            <div class="overlay">
+              <% if pic.name.present? %>
+               
+                <h2>Tags: <%= raw pic.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %><h2>
+
+              <% else %>
+                <h2>Noname</h2>
+              <% end %>
+                <p><a class="info" href="<%= pic_path(pic.id) %>">XEM ẢNH</a></p>
+            </div>
+	        <% end %>  
+        </div>
+      </div>
+    <% end %>
+  </div><br>
+  <div class="row"></div>
+<% end %>

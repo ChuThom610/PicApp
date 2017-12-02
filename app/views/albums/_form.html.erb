@@ -1,0 +1,43 @@
+<%= form_with(model: album, local: true, html: {multipart: true}) do |form| %>
+  <% if album.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(album.errors.count, "error") %> prohibited this album from being saved:</h2>
+
+      <ul>
+      <% album.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="row">
+    <div class="col-md-6" style="border: 1px solid; border-radius: 5px; padding: 20px 20px; margin-bottom: 20px">
+
+      <div class="form-group">
+        <%= form.hidden_field :user_id, value: current_user.id %>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, id: :album_name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :description %>
+        <%= form.text_area :description, id: :album_description, class: "form-control" %>
+      </div>
+
+      <%= form.fields_for :pics do |p| %>
+        <div class="form-group">
+          <%= p.label :picture %><br>
+          <%= p.file_field :picture, multiple: true, name: "pics[picture][]", class: "upload-image" %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= form.submit "Update Album", class: "btn btn-success" %>
+      </div>
+    </div>
+  </div>
+<% end %>

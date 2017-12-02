@@ -1,0 +1,27 @@
+<table class="table table-bordered table-striped table-responsive" style="margin: 30px 0 30px 0">
+  <tr>
+   <th>User name</th>
+   <td><%= @comment.user_name %></td>
+  </tr>
+
+  <tr>
+    <th>Content</th>
+    <td><%= @comment.body %></td>	
+  </tr>
+
+  <tr>
+  	<th>Picture Id</th>
+    <td><%= @comment.pic_id %></td>
+  </tr>
+
+  <tr>
+  	<th>Picture Name</th>
+    <td></td>
+  </tr>
+</table>
+
+<% if current_user.admin? || (@comment.user_id == current_user.id) %>
+<%= link_to 'Edit', edit_comment_path(@comment), class: "btn btn-outline-warning" %>
+<% end %>
+<%= link_to 'Back', comments_path, class: "btn btn-outline-info" %>
+

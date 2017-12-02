@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h1><%= @album.name %></h1>
+</p>
+
+<p>
+  &emsp;&emsp;<%= @album.description %>
+</p>
+
+<% @pics.in_groups_of(3) do |group| %>
+  <div class="row">
+    <% group.compact.each do |pic| %>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">  
+        <div class="hovereffect">               
+          <% if pic.picture? %>
+            <img src="<%= pic.picture_url(:thumb)%>" class="img rounded img-fluid" alt="<%= pic.name %>">
+            <div class="overlay">
+                <p>
+                  <a class="info" href="<%= pic_path(pic.id) %>">XEM ẢNH</a>
+                </p>
+                <% if current_user.admin? || (pic.user_id == current_user.id) || (@album.user_id == @user.id) %>
+                  <p><%= link_to "XÓA ẢNH", pic_path(pic.id), data: { confirm: 'Are you sure?' },  method: :delete %></p>
+                <% end %>
+            </div>
+          <% end %> 
+        </div>
+      </div>
+    <% end %>
+  </div><br>
+  <div class="row"></div>
+<% end %>
+
+<% if current_user.admin? || (@album.user_id == current_user.id) %>
+<%= link_to 'Add Image / Edit', edit_album_path(@album), class: "btn btn-outline-success" %>
+<%end%> 
+<%= link_to 'Back', albums_path, class: "btn btn-outline-info" %>

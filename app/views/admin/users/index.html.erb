@@ -1,0 +1,54 @@
+<% provide(:title, t(".title")) %>
+<section class="content-header">
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title" style="margin-bottom: 30px"><%= t(".title") %></h3>
+        </div>
+        <div class="box-body">
+          <table class="table table-bordered table-striped table-responsive">
+            <thead>
+              <tr>
+                <th><%= t(".id") %></th>
+                <th><%= t(".user_name") %></th>
+                <th><%= t(".email") %></th>
+                <th>#</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user| %>
+                <tr>
+                  <td><%= user.id %></td>
+                  <td><%= link_to(user.user_name, admin_user_path(user.id),
+                    data: {turbolinks: false}) %></td>
+                  <td><%= user.email %></td>
+                  <td>
+                    <% if !user.admin? %>
+                      <% if user.lock? %>
+                        <%= link_to(t(".unlock"), admin_user_unlock_path(user.id),
+                          method: :put,
+                          data: {confirm: t(".confirm")}) %>
+                      <% else %>
+                        <%= link_to(t(".lock"), admin_user_lock_path(user.id),
+                          method: :put,
+                          data: {confirm: t(".confirm")}, class: "btn btn-outline-primary") %>
+                      <% end %>
+                    <% end %>
+                  
+                    <%= link_to('Edit', edit_admin_user_path(user.id), data: {turbolinks: false}, class: "btn btn-outline-warning") %>
+                    <%= link_to 'Delete', admin_users_path, data: { confirm: 'Are you sure?' }, method: :delete, class: "btn btn-outline-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+           </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= link_to('Create User', new_admin_user_path, data: {turbolinks: false}, class: "btn btn-success") %>

@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password: root
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: uetphoto
+
+test:
+  <<: *default
+  database: uetphoto
+
+production:
+  <<: *default
+  database: uetphoto_production
+  username: uetphoto
+  password: <%= ENV["UETPHOTO_DATABASE_PASSWORD"] %>
